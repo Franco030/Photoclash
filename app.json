@@ -1,4 +1,7 @@
 {
   "name": "Photoclash",
-  "displayName": "Photoclash"
+  "displayName": "Photoclash",
+  "android": {
+    "package": "com.anonymous.photoclash"
+  }
 }
