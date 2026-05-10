@@ -30,9 +30,16 @@ const DashboardScreen = () => {
                 </View>
             ) : (
                 <View className="flex-row flex-wrap justify-between">
-                    {myUploads.map((uri, index) => (
-                        <View key={index} className="w-[48%] h-40 mb-4 rounded-2xl overflow-hidden border-2 border-pastel-pink/50">
-                            <Image source={{ uri }} className="w-full h-full" resizeMode="cover" />
+                    {myUploads.map((entry) => (
+                        <View
+                            key={entry.id}
+                            className="w-[48%] h-40 mb-4 rounded-2xl overflow-hidden border-2 border-pastel-pink/50 relative"
+                        >
+                            <Image source={{ uri: entry.imageUrl }} className="w-full h-full" resizeMode="cover" />
+
+                            <View className="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded-lg">
+                                <Text className="text-white text-xs font-bold">{entry.votes} votos</Text>
+                            </View>
                         </View>
                     ))}
                 </View>

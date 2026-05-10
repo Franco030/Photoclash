@@ -1,29 +1,28 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { Tournament } from '../models';
 
 const TournamentsScreen = ({ navigation }: any) => {
-    // Datos simulados que luego vendrán de la API
-    const tournaments = [
+    const tournaments: Tournament[] = [
         {
             id: '1',
-            name: 'Atardeceres de la Ciudad',
-            status: 'Activo',
-            participants: 124,
-            image: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800'
+            title: 'Atardeceres de la Ciudad',
+            description: 'Captura la esencia del crepúsculo urbano.',
+            status: 'active',
+            participantsCount: 124,
+            coverImageUrl: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800',
+            createdAt: '2026-05-01T00:00:00Z',
+            endDate: '2026-05-15T00:00:00Z'
         },
         {
             id: '2',
-            name: 'Arquitectura Brutalista',
-            status: 'Activo',
-            participants: 89,
-            image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800'
-        },
-        {
-            id: '3',
-            name: 'Vida Nocturna',
-            status: 'Finalizando',
-            participants: 342,
-            image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800'
+            title: 'Arquitectura Brutalista',
+            description: 'El concreto en su máxima expresión.',
+            status: 'active',
+            participantsCount: 89,
+            coverImageUrl: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800',
+            createdAt: '2026-05-05T00:00:00Z',
+            endDate: '2026-05-20T00:00:00Z'
         },
     ];
 
@@ -45,7 +44,7 @@ const TournamentsScreen = ({ navigation }: any) => {
                         onPress={() => navigation.navigate('TournamentDetail', { id: item.id })}
                     >
                         <ImageBackground
-                            source={{ uri: item.image }}
+                            source={{ uri: item.coverImageUrl }}
                             className="w-full h-full justify-end"
                             resizeMode="cover"
                         >
@@ -54,15 +53,15 @@ const TournamentsScreen = ({ navigation }: any) => {
                             <View className="p-5 flex-row justify-between items-end">
                                 <View className="flex-1 pr-4">
                                     <Text className="text-white text-2xl font-bold mb-1" numberOfLines={2}>
-                                        {item.name}
+                                        {item.title}
                                     </Text>
                                     <Text className="text-gray-200 text-sm font-medium">
-                                        {item.participants} fotógrafos compitiendo
+                                        {item.participantsCount} fotógrafos compitiendo
                                     </Text>
                                 </View>
 
-                                <View className={`px-3 py-1.5 rounded-full ${item.status === 'Activo' ? 'bg-pastel-green' : 'bg-pastel-pink'}`}>
-                                    <Text className="text-white font-bold text-xs">{item.status}</Text>
+                                <View className={`px-3 py-1.5 rounded-full ${item.status === 'active' ? 'bg-pastel-green' : 'bg-pastel-pink'}`}>
+                                    <Text className="text-white font-bold text-xs uppercase">{item.status}</Text>
                                 </View>
                             </View>
                         </ImageBackground>

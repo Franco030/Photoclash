@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useAppStore } from '../store/useAppStore';
@@ -6,7 +6,7 @@ import { useAppStore } from '../store/useAppStore';
 const LoginScreen = () => {
     const login = useAppStore((state) => state.login);
 
-    const handleBiometricAuth = async () => {
+    const handleBiometricAuth = useCallback(async () => {
         const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
         if (!isBiometricAvailable) {
             Alert.alert('Error', 'Tu dispositivo no soporta biometría.');
@@ -29,11 +29,11 @@ const LoginScreen = () => {
         if (biometricAuth.success) {
             login();
         }
-    };
+    }, [login]);
 
     useEffect(() => {
         handleBiometricAuth();
-    }, []);
+    }, [handleBiometricAuth]);
 
     return (
         <View className="flex-1 bg-white items-center justify-center p-6">
