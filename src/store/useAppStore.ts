@@ -8,7 +8,7 @@ interface AppState {
     login: () => void;
     logout: () => void;
     myUploads: PhotoEntry[];
-    addUpload: (imageUri: string) => void;
+    addUpload: (imageUri: string, tournamentId: string) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -19,10 +19,11 @@ export const useAppStore = create<AppState>()(
             logout: () => set({ isAuthenticated: false }),
 
             myUploads: [],
-            addUpload: (imageUri) => set((state) => {
+            addUpload: (imageUri, tournamentId) => set((state) => {
                 const newEntry: PhotoEntry = {
                     id: Math.random().toString(),
                     authorId: 'me',
+                    tournamentId: tournamentId,
                     imageUrl: imageUri,
                     votes: 0,
                     submittedAt: new Date().toISOString(),

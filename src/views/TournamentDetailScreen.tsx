@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Alert, Pressable, Image } from 'react-native';
+import {View, Text, Alert, Pressable, Image, TouchableOpacity} from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -9,7 +9,9 @@ import Animated, {
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const TournamentDetailScreen = ({ navigation }: any) => {
+const TournamentDetailScreen = ({ route, navigation }: any) => {
+    const tournamentId = route.params?.id;
+
     const [voted, setVoted] = useState(false);
 
     const competitorA = 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=500';
@@ -101,6 +103,12 @@ const TournamentDetailScreen = ({ navigation }: any) => {
                     </View>
                 </AnimatedPressable>
 
+                <TouchableOpacity
+                    className="absolute bottom-6 right-6 bg-pastel-green w-16 h-16 rounded-full items-center justify-center shadow-md border-4 border-white"
+                    onPress={() => navigation.navigate('Upload', { tournamentId })}
+                >
+                    <Text className="text-white text-3xl font-bold mb-1">+</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

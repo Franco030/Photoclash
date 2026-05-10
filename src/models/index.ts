@@ -10,6 +10,7 @@ export interface User {
 export interface PhotoEntry {
     id: string;
     authorId: string;
+    tournamentId: string;
     imageUrl: string;
     votes: number;
     submittedAt: string;

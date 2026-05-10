@@ -18,6 +18,7 @@ function TournamentStack() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="TournamentList" component={TournamentsScreen} />
             <Stack.Screen name="TournamentDetail" component={TournamentDetailScreen} />
+            <Stack.Screen name="Upload" component={UploadScreen} />
         </Stack.Navigator>
     );
 }
@@ -38,7 +39,6 @@ export default function DrawerNavigator() {
             <Drawer.Screen name="Bienvenida" component={WelcomeScreen} options={{ headerShown: false }} />
             <Drawer.Screen name="Inicio" component={DashboardScreen} />
             <Drawer.Screen name="Torneos" component={TournamentStack} />
-            <Drawer.Screen name="Subir Foto" component={UploadScreen} />
             <Drawer.Screen name="Ganadores" component={HallOfFameScreen} />
             <Drawer.Screen name="Ajustes" component={SettingsScreen} />
         </Drawer.Navigator>

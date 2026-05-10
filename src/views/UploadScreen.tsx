@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useAppStore } from '../store/useAppStore';
 
-const UploadScreen = ({ navigation }: any) => {
+const UploadScreen = ({ route, navigation }: any) => {
+    const tournamentId = route.params?.tournamentId || 'desconocido';
     const [image, setImage] = useState<string | null>(null);
 
     const addUpload = useAppStore((state) => state.addUpload);
@@ -46,7 +47,7 @@ const UploadScreen = ({ navigation }: any) => {
 
     const handleParticipate = () => {
         if (image) {
-            addUpload(image);
+            addUpload(image, tournamentId);
             Alert.alert('Exito', 'Tu fotografia ha sido registrada en el torneo.');
             setImage(null);
             navigation.navigate('Inicio');
