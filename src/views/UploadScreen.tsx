@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useAppStore } from '../store/useAppStore';
 
-const UploadScreen = () => {
+const UploadScreen = ({ navigation }: any) => {
     const [image, setImage] = useState<string | null>(null);
+
+    const addUpload = useAppStore((state) => state.addUpload);
 
     const pickImage = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -41,6 +44,15 @@ const UploadScreen = () => {
         setImage(null);
     };
 
+    const handleParticipate = () => {
+        if (image) {
+            addUpload(image);
+            Alert.alert('Exito', 'Tu fotografia ha sido registrada en el torneo.');
+            setImage(null);
+            navigation.navigate('Inicio');
+        }
+    }
+
     return (
         <View className="flex-1 bg-white items-center p-6">
             <Text className="text-2xl font-bold text-gray-800 mb-6 mt-4">Prepara tu disparo</Text>
@@ -59,7 +71,7 @@ const UploadScreen = () => {
                             <Text className="text-gray-600 font-bold text-lg">Descartar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity className="flex-1 bg-pastel-green py-4 rounded-2xl items-center">
+                        <TouchableOpacity onPress={handleParticipate} className="flex-1 bg-pastel-green py-4 rounded-2xl items-center">
                             <Text className="text-white font-bold text-lg">Participar</Text>
                         </TouchableOpacity>
                     </View>
