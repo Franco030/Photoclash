@@ -2,6 +2,8 @@ export interface User {
     id: string;
     username: string;
     avatarUrl?: string;
+    title: string;
+    score: number;
     winRate: number;
 }
 
