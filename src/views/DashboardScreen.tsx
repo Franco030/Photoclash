@@ -1,30 +1,26 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useAppStore } from '../store/useAppStore';
+import { View, Text, ScrollView } from 'react-native';
 
-export const DashboardScreen = ({ _navigation }: any) => {
-    const { theme } = useAppStore();
-    const isDark = theme === 'dark';
-
+const DashboardScreen = () => {
     return (
-        <View className={`flex-1 items-center justify-center p-6 ${isDark ? 'bg-gray-900' : 'bg-pastel-pink'}`}>
-            <View className={`p-8 rounded-3xl w-full max-w-sm items-center shadow-lg ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
-                <Text className={`text-2xl font-bold mb-2 text-center ${isDark ? 'text-white' : 'text-gray-800'}`}>
-                    Bienvenido a PhotoClash
-                </Text>
-                <Text className={`text-center mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                    ¿Listo para descubrir tu foto favorita del día?
-                </Text>
-
-                <TouchableOpacity
-                    className={`w-full py-4 rounded-xl items-center ${isDark ? 'bg-cyan-500' : 'bg-pastel-blue'}`}
-                    onPress={() => console.log('Navegar a configurar torneo')}
-                >
-                    <Text className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-800'}`}>
-                        Iniciar Nuevo Torneo
-                    </Text>
-                </TouchableOpacity>
+        <ScrollView className="flex-1 bg-white p-4">
+            <Text className="text-2xl font-bold text-gray-800 mb-4">Tu Actividad</Text>
+            <View className="flex-row justify-between mb-6">
+                <View className="bg-pastel-blue/20 p-4 rounded-2xl w-[48%] items-center">
+                    <Text className="text-2xl font-bold text-pastel-blue">12</Text>
+                    <Text className="text-xs text-gray-600">Torneos</Text>
+                </View>
+                <View className="bg-pastel-green/20 p-4 rounded-2xl w-[48%] items-center">
+                    <Text className="text-2xl font-bold text-pastel-green">85%</Text>
+                    <Text className="text-xs text-gray-600">Win Rate</Text>
+                </View>
             </View>
-        </View>
+            <Text className="text-lg font-bold text-gray-700 mb-3">Ranking Global</Text>
+            <View className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                <Text className="text-gray-400 text-center italic">Cargando estadísticas mundiales...</Text>
+            </View>
+        </ScrollView>
     );
 };
+
+export default DashboardScreen;

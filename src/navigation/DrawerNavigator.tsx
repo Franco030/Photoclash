@@ -1,48 +1,46 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useAppStore } from '../store/useAppStore';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { DashboardScreen } from '../views/DashboardScreen';
-import { HallOfFameScreen } from '../views/HallOfFameScreen';
-import { SettingsScreen } from '../views/SettingsScreen';
+import WelcomeScreen from '../views/WelcomeScreen';
+import DashboardScreen from '../views/DashboardScreen';
+import TournamentsScreen from '../views/TournamentsScreen';
+import TournamentDetailScreen from '../views/TournamentDetailScreen';
+import UploadScreen from '../views/UploadScreen';
+import HallOfFameScreen from '../views/HallOfFameScreen';
+import SettingsScreen from '../views/SettingsScreen';
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
-export const DrawerNavigator = () => {
-    // Consumimos el tema guardado en MMKV para inyectarlo en el menú flotante
-    const { theme } = useAppStore();
-    const isDark = theme === 'dark';
+function TournamentStack() {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="TournamentList" component={TournamentsScreen} />
+            <Stack.Screen name="TournamentDetail" component={TournamentDetailScreen} />
+        </Stack.Navigator>
+    );
+}
 
+export default function DrawerNavigator() {
     return (
         <Drawer.Navigator
-            initialRouteName="Dashboard"
+            initialRouteName="Bienvenida"
             screenOptions={{
-                headerStyle: {
-                    backgroundColor: isDark ? '#1F2937' : '#FFD1DC', // Pastel Pink vs Dark Gray
-                },
-                headerTintColor: isDark ? '#FFFFFF' : '#1F2937',
-                drawerStyle: {
-                    backgroundColor: isDark ? '#111827' : '#FFFFFF',
-                },
-                drawerActiveTintColor: isDark ? '#38BDF8' : '#F472B6', // Neon Cyan vs Pastel Pink
-                drawerInactiveTintColor: isDark ? '#9CA3AF' : '#4B5563',
+                headerStyle: { backgroundColor: '#AEC6CF', elevation: 0, shadowOpacity: 0 },
+                headerTintColor: '#fff',
+                headerTitleStyle: { fontWeight: 'bold' },
+                drawerActiveBackgroundColor: '#FFD1DC30',
+                drawerActiveTintColor: '#B39EB5',
+                drawerLabelStyle: { fontSize: 16 },
             }}
         >
-            <Drawer.Screen
-                name="Dashboard"
-                component={DashboardScreen}
-                options={{ title: 'Torneos Activos' }}
-            />
-            <Drawer.Screen
-                name="HallOfFame"
-                component={HallOfFameScreen}
-                options={{ title: 'Salón de la Fama' }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{ title: 'Ajustes y Tema' }}
-            />
+            <Drawer.Screen name="Bienvenida" component={WelcomeScreen} options={{ headerShown: false }} />
+            <Drawer.Screen name="Inicio" component={DashboardScreen} />
+            <Drawer.Screen name="Torneos" component={TournamentStack} />
+            <Drawer.Screen name="Subir Foto" component={UploadScreen} />
+            <Drawer.Screen name="Ganadores" component={HallOfFameScreen} />
+            <Drawer.Screen name="Ajustes" component={SettingsScreen} />
         </Drawer.Navigator>
     );
-};
+}

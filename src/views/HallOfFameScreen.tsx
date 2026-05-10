@@ -1,46 +1,30 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList } from 'react-native';
-import { useAppStore } from '../store/useAppStore';
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
 
-export const HallOfFameScreen = () => {
-    const { theme } = useAppStore();
-    const isDark = theme === 'dark';
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const mockGanadores = [
-        { id: '1', titulo: 'Viaje a la playa', fecha: '2026-05-01' },
-        { id: '2', titulo: 'Graduación', fecha: '2026-04-15' },
-        { id: '3', titulo: 'Cena con amigos', fecha: '2026-03-20' },
+const HallOfFameScreen = () => {
+    const winners = [
+        { id: '1', user: '@edwin_jaziel', title: 'Maestro de la Luz' },
+        { id: '2', user: '@urban_shot', title: 'Rey del Contraste' },
     ];
 
     return (
-        <View className={`flex-1 p-4 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
-            {/* Mecanismo de Búsqueda (Requisito Rúbrica) */}
-            <View className={`px-4 py-3 rounded-xl mb-6 flex-row items-center border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
-                <TextInput
-                    placeholder="Buscar torneo por título..."
-                    placeholderTextColor={isDark ? '#9CA3AF' : '#9CA3AF'}
-                    className={`flex-1 ${isDark ? 'text-white' : 'text-gray-800'}`}
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                />
-            </View>
-
-            <Text className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-800'}`}>
-                Tus Mejores Fotos
-            </Text>
-
+        <View className="flex-1 bg-white p-4">
+            <Text className="text-2xl font-bold text-pastel-lavender mb-4">Salón de la Fama</Text>
             <FlatList
-                data={mockGanadores.filter(g => g.titulo.toLowerCase().includes(searchQuery.toLowerCase()))}
-                keyExtractor={item => item.id}
+                data={winners}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View className={`p-4 rounded-xl mb-3 ${isDark ? 'bg-gray-800' : 'bg-pastel-pink/20'}`}>
-                        <Text className={`font-bold text-lg ${isDark ? 'text-white' : 'text-gray-800'}`}>{item.titulo}</Text>
-                        <Text className={isDark ? 'text-gray-400' : 'text-gray-600'}>{item.fecha}</Text>
+                    <View className="bg-pastel-lavender/10 p-5 rounded-3xl mb-4 border border-pastel-lavender/20 flex-row items-center">
+                        <View className="w-12 h-12 bg-pastel-lavender rounded-full mr-4" />
+                        <View>
+                            <Text className="font-bold text-gray-800">{item.user}</Text>
+                            <Text className="text-gray-500">{item.title}</Text>
+                        </View>
                     </View>
                 )}
-                ListEmptyComponent={<Text className={isDark ? 'text-gray-400' : 'text-gray-500'}>No se encontraron torneos.</Text>}
             />
         </View>
     );
 };
+
+export default HallOfFameScreen;
